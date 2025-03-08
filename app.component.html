@@ -1,0 +1,67 @@
+<div class="container">
+  <h2>Buscar Usuario</h2>
+
+  <input type="search" [(ngModel)]="nombre" placeholder="Ingresa el nombre del usuario">
+  <button (click)="enviarNombre()">Buscar</button>
+
+  <div *ngIf="mostrarAdvertencia" class="advertencia">
+    <p>Llena el campo de búsqueda</p>
+  </div>
+
+  <div *ngIf="usuarioEncontrado" class="informacion-usuario">
+    <h3>Bienvenido, {{ usuarioEncontrado.nombre }}!</h3>
+    <p><strong>Edad:</strong> {{ usuarioEncontrado.edad }}</p>
+    <p><strong>Fecha de nacimiento:</strong> {{ usuarioEncontrado.fechaNacimiento }}</p>
+    <p><strong>universidad:</strong> {{ usuarioEncontrado.universidad }}</p>
+    <p><strong>carrera:</strong> {{ usuarioEncontrado.carrera }}</p>
+    <p><strong>semestre:</strong> {{ usuarioEncontrado.semestre }}</p>
+    <p><strong>trabajo:</strong> {{ usuarioEncontrado.trabajo }}</p>
+    <p><strong>telefono:</strong> {{ usuarioEncontrado.telefono }}</p>
+    <p><strong>Gustos:</strong> {{ usuarioEncontrado.gustos.join(", ") }}</p>
+
+    <div *ngIf="mostrarBotonCanciones">
+      <button (click)="toggleCanciones()">Mostrar Canciones Favoritas</button>
+    </div>
+
+    <div *ngIf="mostrarCanciones" class="canciones">
+      <h4>Canciones favoritas:</h4>
+      <ul>
+        <li *ngFor="let cancion of usuarioEncontrado.cancionesFavoritas">
+          <a href="{{ cancion.url }}" target="_blank">{{ cancion.titulo }}</a>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="mostrarBotonCosasFavoritas">
+      <button (click)="toggleCosasFavoritas()">Mis Cosas Favoritas</button>
+    </div>
+
+    <div *ngIf="mostrarCosasFavoritas" class="cosas-favoritas">
+      <h4>Cosas favoritas:</h4>
+      <ul>
+        <li *ngFor="let cosa of usuarioEncontrado.cosasFavoritas">
+          <img [src]="cosa.imagen" alt="{{ cosa.nombre }}" width="50" height="50">
+          <p>{{ cosa.nombre }}</p>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="mostrarBotonCosasNoFavoritas">
+      <button (click)="toggleCosasNoFavoritas()">Mis Cosas No Favoritas</button>
+    </div>
+
+    <div *ngIf="mostrarCosasNoFavoritas" class="cosas-no-favoritas">
+      <h4>Cosas no favoritas:</h4>
+      <ul>
+        <li *ngFor="let cosa of usuarioEncontrado.cosasNoFavoritas">
+          <img [src]="cosa.imagen" alt="{{ cosa.nombre }}" width="50" height="50">
+          <p>{{ cosa.nombre }}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div *ngIf="usuarioEncontrado === null && nombre.trim()">
+    <p>Usuario no encontrado.</p>
+  </div>
+</div>
